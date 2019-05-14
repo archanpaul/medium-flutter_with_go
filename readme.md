@@ -117,3 +117,29 @@ This generates following :
     * `DataProcessor` : class to be used in app.
 * `gonativelib-sources.jar` : Java source for reference.
 
+## Create Flutter app
+
+Create flutter app from from default template.
+
+```bash
+~$ cd ~/workspace/
+~$ flutter create flutter_gonative_app
+~$ cd ~/workspace/flutter_gonative_app
+```
+
+When you run this default app from your favorite IDE you should be able to see the familiar app with stateful widget containing the floating button which updates counter value on click.
+
+We will be adding functionality in _incrementCounter(). The default app's _incrementCounter() which look like following :
+
+```dart
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
+  }
+```
