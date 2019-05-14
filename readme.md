@@ -70,3 +70,50 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 • No issues found!
 ```
+## Create our Go Library for Flutter
+
+```bash
+~$ mkdir -p $GOPATH/src/gonative-lib
+```
+
+Create `$GOPATH/src/gonative-lib/data-processor.go`
+
+```go
+package gonativelib
+
+import (
+    "errors"
+)
+
+type (
+    // DataProcessor :
+    DataProcessor struct {
+    	// add fields here
+    }
+)
+
+// Increment : Increment the int received as an argument.
+func (p *DataProcessor) Increment(data int) (int, error) {
+    if data < 0 {
+	    // Return error if data is negative. This will
+	    // result exception in Android side.
+	    return data, errors.New("data can't be negative")
+    }
+    return (data + 1), nil
+}
+```
+
+Compile and create Android library.
+
+```bash
+~$ cd $GOPATH/src/gonative-lib
+~$ gomobile bind --target android
+```
+
+This generates following :
+
+* `gonativelib.aar` : Android library to be used in Flutter app.
+    * `Gonativelib` : class corresponding to the package.
+    * `DataProcessor` : class to be used in app.
+* `gonativelib-sources.jar` : Java source for reference.
+
