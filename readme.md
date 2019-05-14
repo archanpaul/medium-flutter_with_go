@@ -1,6 +1,6 @@
-# Using Go code in Flutter app
+# Using Go Library in Flutter
 
-This article is originally published [here]().
+This article is originally published [here](https://www.arputer.com/using-go-library-in-flutter).
 
 [Flutter](https://flutter.dev/) has made it possible to develope cross platform mobile app with native performance. Till we had [Flutter](https://flutter.dev/) we used to write the platform specific UI code of mobile app using Java/Kotlin for [Android](https://www.android.com/intl/en_in/) and Objective-C/Swift for [iOS](https://www.apple.com/ios). Now with Flutter we can use same codebase for App/UI for multiple platforms.
 
@@ -521,7 +521,7 @@ What we learned in this article :
 * Use platform channel in Flutter app to call platform specific libraries (in our case Go native library).
 * Send argument(s) to Go API from Flutter and return (synchronous) results back to Flutter for UI update.
 
-The source code can be found from [GitHub]().
+The source code can be found from [Bitbucket/arputer](https://bitbucket.org/arputer/flutter_with_go/).
 
 In the future article in this series I will try to demonstrate an example about, how to use [RxDart](https://github.com/ReactiveX/rxdart) and [EventChannel](https://docs.flutter.io/flutter/services/EventChannel-class.html) to achieve this. 
 
