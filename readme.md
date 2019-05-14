@@ -6,7 +6,7 @@ This article is originally published [here](https://www.arputer.com/using-go-lib
 
 While working on various full-stack mobile-app development projects at [Arputer Technologies](https://www.arputer.com/) we wrote tons of platform independent business-logic or algorithm code in [Go](https://golang.org/) and used Google's [Gomobile](https://godoc.org/golang.org/x/mobile/cmd/gomobile) tool to create Android/iOS natively compiled libraries which are called from Java/Kotlin or Objective-C/Swift UI depending on the platform. This approach helped us to write (and test) core business logic code once and use the same in multiple platforms (Android, iOS and .. Linux, Mac). While working with Flutter we wanted to reuse the same Go codebase/API and we found it easy to use the [Gomobile](https://godoc.org/golang.org/x/mobile/cmd/gomobile) generated Android/iOS libraries in Flutter using [Flutter platform-channel](https://flutter.dev/docs/development/platform-integration/platform-channels).
 
-In this article I will give an example of trivial use-case and learn how to integrate Go code into Flutter for multiple platforms. We will try to achieve following :
+In this article we will learn how to integrate Go library code into Flutter and use it in cross platform scenario. We will try to achieve following :
 
 * A simple Go app which receives an integer variable from Flutter through platform-channel and returns an incremented value of it.
 * A simple flutter app which sends integer to native Go API and update it's stateful widget. We will modify the wellknow *counter app* which is generated from template when you create Flutter app.
@@ -451,7 +451,7 @@ public class MainActivity extends FlutterActivity {
 Corresponding `git-diff`
 
 ```diff
-[arp@arpo flutter_with_go]$ git diff flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java
+~$ git diff flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java
 diff --git a/flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java b/flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java
 index 204af8a..8893167 100644
 --- a/flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java
