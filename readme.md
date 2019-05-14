@@ -143,3 +143,109 @@ We will be adding functionality in _incrementCounter(). The default app's _incre
     });
   }
 ```
+
+## Add Go library (Android) to Flutter app
+
+First, add the Android `gonative-library` which we have created in the previous step, to the Flutter app.
+
+To add the Android `gonative-library` which we have created in the previous step, to the Flutter app, create `libs` folder in Android code of Flutter app and copy the `gonative-library` Android `aar` file into this folder.
+
+```bash
+~$ mkdir ~/workspace/flutter_gonative_app/android/app/src/main/libs/
+~$ cp $GOPATH/src/gonative-lib/gonativelib.aar ~/workspace/flutter_gonative_app/android/app/src/main/libs/
+```
+
+Now update `~/workspace/flutter_gonative_app/android/app/build.gradle` with following :
+
+```java
+repositories{
+    flatDir{
+         dirs 'src/main/libs'
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    api(name:'gonativelib', ext:'aar')
+}
+```
+
+Corresponding `git-diff`.
+
+```diff
+~$ git diff flutter_gonative_app/android/app/build.gradle
+diff --git a/flutter_gonative_app/android/app/build.gradle b/flutter_gonative_app/android/app/build.gradle
+index 51d0d1d..4174a0e 100644
+--- a/flutter_gonative_app/android/app/build.gradle
++++ b/flutter_gonative_app/android/app/build.gradle
+@@ -54,8 +54,15 @@ flutter {
+     source '../..'
+ }
+ 
++repositories{
++    flatDir{
++         dirs 'src/main/libs'
++    }
++}
++
+ dependencies {
+     testImplementation 'junit:junit:4.12'
+     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
++    api(name:'gonativelib', ext:'aar')
+ }
+
+```
+
+Update `~/workspace/flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java` with following :
+
+```java
+package com.example.flutter_gonative_app;
+
+import android.os.Bundle;
+
+import gonativelib.DataProcessor;
+import io.flutter.app.FlutterActivity;
+import io.flutter.plugins.GeneratedPluginRegistrant;
+
+
+public class MainActivity extends FlutterActivity {
+  DataProcessor goNativeDataProcessor = new DataProcessor();
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    GeneratedPluginRegistrant.registerWith(this);
+  }
+}
+```
+
+```diff
+~$ git diff flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java
+diff --git a/flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java b/flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java
+index 2fb247b..cca3684 100644
+--- a/flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java
++++ b/flutter_gonative_app/android/app/src/main/java/com/example/flutter_gonative_app/MainActivity.java
+@@ -1,10 +1,15 @@
+ package com.example.flutter_gonative_app;
+ 
+ import android.os.Bundle;
++
++import gonativelib.DataProcessor;
+ import io.flutter.app.FlutterActivity;
+ import io.flutter.plugins.GeneratedPluginRegistrant;
+ 
++
+ public class MainActivity extends FlutterActivity {
++  DataProcessor goNativeDataProcessor = new DataProcessor();
++
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+     super.onCreate(savedInstanceState);
+
+```
+
+Restart your flutter app to get it recompiled with the changes you have made.
+
